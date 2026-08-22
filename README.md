@@ -12,6 +12,12 @@ the beam. All hardware is off-the-shelf, total cost on the order of a few hundre
 **13 hydrogen detections across 5 nights, l = 11°–74°, 1.9 h of on-sky integration —
 8 of them above 5σ.**
 
+![The instrument indoors: mesh dish on a hand-built mount, feed and LNA at the focus, coax to the laptop running the acquisition software](docs/hardware/bench-setup.jpg)
+
+*The receiver chain assembled indoors — 20 dBi mesh dish on a hand-built wooden mount, feed
+and LNA at the focus, coax to the laptop running the acquisition app. Observing is done
+outdoors; this is the bench, not a session.*
+
 ---
 
 ## Figures
@@ -162,9 +168,25 @@ Mount is fixed in azimuth at 180° (due south). The only pointing control is ele
 set with a phone inclinometer laid on the feed boom, or computed from tape-measure numbers
 by `angle_calc.py`. On Windows the SDR needs the WinUSB driver installed once via Zadig.
 
-> Photographs live in [`docs/hardware/`](docs/hardware/) — currently the bench setup
-> indoors and the application interface. A photograph of the dish deployed outdoors is
-> the one thing this repository is still missing.
+### The software driving it
+
+| | |
+|---|---|
+| ![The application streaming from the SDR](docs/hardware/app-live-hardware.jpg) | ![The ON-PLANE banner, amber, approaching transit](docs/hardware/app-plane-banner.jpg) |
+
+**Left:** the application streaming from the SDR — backend set to Hardware, status bar
+reading *Streaming from Hardware*, and the l–b and l–v maps repopulated from the saved log
+on startup. The banner is red because the beam was off-plane when the photo was taken; the
+spectrum shows the raw receiver bandpass before a cold-sky baseline has been subtracted.
+
+**Right:** the pointing banner close up, amber at `b = +2.87°` — *near plane, transit
+approaching*. It goes green inside |b| < 2°, which is the cue to start a drift scan. This
+particular frame is the app in **Simulation** mode, which is how the interface was developed
+and is still regression-tested.
+
+Observing-site coordinates are blanked in both. Photographs live in
+[`docs/hardware/`](docs/hardware/); a shot of the dish deployed outdoors is the one this
+repository still lacks.
 
 ---
 

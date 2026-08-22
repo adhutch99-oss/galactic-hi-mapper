@@ -1,37 +1,39 @@
 # Photographs
 
-## What goes here now
-
-Three images exist for this project today:
-
-| File | What it is | Caption it honestly as |
+| File | What it shows | Honest description |
 |---|---|---|
-| `bench-setup-1.jpg` | The full signal chain indoors, next to the laptop with the app open | Bench setup — **not** an observing session |
-| `bench-setup-2.jpg` | Second angle of the same | as above |
-| `app-idle.png` | The application running, off-plane (banner not green) | The interface, with no target in the beam |
+| `bench-setup.jpg` | The whole signal chain assembled indoors, laptop running the app | Bench setup — **not** an observing session |
+| `app-live-hardware.jpg` | The app streaming from the SDR, backend on Hardware, maps reloaded from the log | Off-plane at the moment of the photo (banner red) |
+| `app-plane-banner.jpg` | The pointing banner close up, amber at b = +2.87° | The app in **Simulation** mode |
 
-An indoor bench photo is worth having. It shows the receiver chain is real hardware
-rather than a simulation, and that the software drives it. What it must not do is
-imply the dish was pointed at the sky when it was taken — the banner in the app
-screenshot is not green, and captioning around that is what keeps the whole
-repository trustworthy.
+## Two rules these follow
 
-## What is still missing, for whenever the dish is reachable again
+**Nothing implies an observation that did not happen.** The bench photo is indoors with the
+dish aimed at a wall. The interface photos have a red and an amber banner, and one of them
+is the simulator. All three are captioned as such in the top-level README. They are worth
+publishing because they show the receiver chain is real hardware and that the software
+drives it — that is a different claim from "here is a detection", and the spectra in
+`spectra/` carry that one.
 
-In rough order of how much each one adds:
+**No location data, in the pixels or in the file.** Phone photos embed GPS coordinates in
+EXIF, typically accurate to a few metres; the originals here did. Every image in this folder
+was re-encoded from raw pixels with no metadata attached, and the latitude/longitude fields
+visible on screen were blanked. Check any new photo before committing it:
 
-1. **The dish outdoors on its mount**, feed boom visible. This is the photo the
-   repository actually lacks — it is the only one that shows the instrument
-   deployed rather than disassembled on a desk.
-2. **The app mid-scan with the ON-PLANE banner green** and a line visible in the
-   spectrum. Pair it with the log row it produced and it becomes evidence, not
-   decoration.
+```bash
+python -c "from PIL import Image; e=Image.open('new.jpg').getexif(); print(len(e), bool(e.get_ifd(0x8825)))"
+```
+
+Both numbers must be `0` and `False`. Stripping EXIF means opening the image and re-saving
+the pixels alone — renaming the file or cropping it in a phone gallery does not do it.
+
+## Still missing
+
+1. **The dish outdoors on its mount**, feed boom visible. The only shot that shows the
+   instrument deployed rather than assembled on a floor.
+2. **The app mid-scan with the banner green** and a line in the spectrum, paired with the
+   log row it produced. That combination is evidence rather than illustration.
 3. **The feed and LNA close up**, SAWbird power LED lit.
-4. **Elevation being measured** — phone inclinometer resting on the feed boom.
-   Explains the pointing method faster than a paragraph does.
+4. **Elevation being measured** — phone inclinometer on the feed boom.
 
-## Conventions
-
-Descriptive lowercase filenames, hyphens not spaces, each under ~2 MB so the
-repository stays quick to clone. Reference them from the top-level `README.md`
-with a caption that says where and when the photo was taken.
+Lowercase hyphenated filenames, under ~2 MB each.
