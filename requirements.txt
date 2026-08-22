@@ -1,0 +1,12 @@
+# Python 3.13.  PyQt6/scipy/astropy wheels were not yet published for 3.14
+# at time of writing, so a 3.14 interpreter will fail on import.
+numpy>=1.26
+scipy>=1.11
+matplotlib>=3.8
+PyQt6>=6.6
+astropy>=6.0
+
+# Hardware backend only.  The app runs fine without these: with no SDR present
+# it detects this at startup and falls back to Simulation mode.
+pyrtlsdr>=0.3
+pyrtlsdrlib>=0.0.3      # bundles the librtlsdr shared library
