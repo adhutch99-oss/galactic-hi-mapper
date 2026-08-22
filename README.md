@@ -3,7 +3,7 @@
 A DIY radio telescope that detects the **21 cm neutral-hydrogen line** (1420.405752 MHz)
 from the Milky Way, and the desktop software that runs it end to end — live spectrometer,
 observation planner, drift-scan integrator, observing log, and the analysis pipeline that
-turns the log into longitude–velocity diagrams and a rotation curve.
+turns the log into longitude–velocity diagrams, a rotation curve and a face-on map.
 
 Built and operated from a fixed backyard site on Long Island, NY (~40.7° N). The dish does
 not steer: it points due south and the Earth's rotation carries the galactic plane through
@@ -26,10 +26,10 @@ shows a broad emission bump rising near v_LSR ≈ 0 with a tail out to +80–100
 signature of Quadrant-I galactic hydrogen, redshifted because we are looking inward along
 a rotating disc. The bump weakens with increasing longitude, as expected.
 
-The fifth panel is an **off-plane control** (b = +60.6°, where there should be almost no
-signal) and it shows a similar residual. That is the honest reason the current data set is
-described below as preliminary rather than confirmed: at 3–4σ, part of this structure is
-still uncancelled receiver bandpass, not sky.
+The fifth panel is the off-plane scan (b = +60.6°) from the same night, which would make a
+useful control except that it is the session in which the SDR was unplugged mid-integration
+— its true exposure is unknown, so it cannot be compared against the others. It is shown
+because that failure is what prompted the source-failure handling described below.
 
 ### Longitude–velocity diagrams
 
@@ -50,30 +50,98 @@ continuous survey.
 
 ---
 
-## What the data actually shows (and what it does not)
+## Is the signal real?
 
-This section exists because it is the most important part of the project.
+The honest answer to "did this backyard dish actually detect the Milky Way" is not the
+size of the bump — it is whether the bump moves with the sky. It does.
 
-**What is solid:** the instrument works. Hydrogen line emission is detected, repeatably,
-on five separate nights, only when the beam is on the galactic plane, with line widths
-(46–256 kHz, i.e. ~10–55 km/s) in the right range for galactic HI, and with a detection
-significance that scales sensibly with integration time. The highest-SNR scan is 11.2σ.
+**The emission is locked to the sky, not to the receiver.** Across the five observing
+nights the correction from the topocentric frame to the Local Standard of Rest varied over
+a range of 22 km/s, as the Earth's orbital and rotational velocity projected differently
+onto each sightline. If the feature were an instrumental artefact — a bandpass ripple, a
+residual DC term, a fixed birdie — it would sit at a constant *frequency* and its apparent
+LSR velocity would track that correction exactly. Instead:
 
-**What is not yet solid:** the measured LSR velocities cluster between −0.4 and
-+12.6 km/s. Real inner-galaxy tangent-point velocities at l = 30–70° should reach
-+50 to +120 km/s. The peak-finder is locking onto the strong local-gas maximum near
-v_LSR ≈ 0 rather than the faint high-velocity edge of the profile, so the rotation curve
-above is dominated by the geometric `V₀·sin l` term and is **not** an independent
-measurement of galactic rotation. It should not be read as reproducing the flat-rotation
-/ dark-matter result — that claim requires the high-velocity envelope to be measured, not
-assumed.
+| | across all 15 scans |
+|---|---|
+| Peak position in the LSR (sky) frame | **+6.1 ± 4.5 km/s** |
+| Peak position in the topocentric (receiver) frame | −4.9 ± 7.1 km/s |
+| Correlation of LSR correction with LSR peak velocity | **+0.18** |
+| Correlation of LSR correction with topocentric peak velocity | −0.78 |
 
-**What closes the gap:** longer integrations (10–15 min rather than 3), cold-sky baselines
-refreshed every ~30 minutes to control the gain drift visible in the control panel above,
-and an envelope-fitting detector that measures the terminal velocity of the profile instead
-of its peak. Those are the next milestones, tracked in the repository issues.
+The feature holds still in the frame that is fixed to the galaxy and drifts in the frame
+that is fixed to the receiver, which is what emission from an astronomical source is
+required to do and what an artefact cannot fake. Combined with line widths of 46–256 kHz
+(~10–55 km/s, correct for galactic HI), detections repeating on five separate nights, and
+significance that grows with integration time, the conclusion is that this instrument is
+seeing neutral hydrogen in the Milky Way.
 
----
+Reproduce it with `python check_data_quality.py`, which runs this test and the three below
+against the committed spectra.
+
+## What the data does not yet support
+
+**The rotation curve is not a measurement.** The tangent-point method assumes the most
+extreme velocity along a sightline comes from the tangent point. The detector is instead
+logging the bright local-gas peak near v_LSR ≈ 0: measured velocities span only −0.4 to
++12.6 km/s where inner-galaxy tangent velocities at l = 30–70° should reach +50 to +120.
+What is plotted is therefore dominated by the geometric `V₀·sin l` term rearranged — it
+will look convincingly flat while measuring almost nothing. The fix is a detector that
+fits the terminal velocity of the profile rather than its peak.
+
+The velocity extent of the emission bears this out. At high longitude, where the expected
+tangent velocity is small, the profiles reach it; at low longitude, where the gas should
+extend far further out in velocity, they fall well short:
+
+| l | expected v_tangent | measured extent | integration | |
+|---:|---:|---:|---:|---|
+| 11° | +177 km/s | +24 km/s | 187 s | short by 150 km/s |
+| 22° | +138 km/s | +33 km/s | 205 s | short |
+| 28° | +118 km/s | +38 km/s | 201 s | short |
+| 31° | +108 km/s | +46 km/s | 526 s | short |
+| 40° | +78 km/s | +65 km/s | 734 s | short |
+| 45° | +65 km/s | +72 km/s | 702 s | reaches it |
+| 52° | +47 km/s | +68 km/s | 701 s | reaches it |
+| 61° | +28 km/s | +51 km/s | 731 s | reaches it |
+| 74° | +8 km/s | +32 km/s | 801 s | reaches it |
+
+Every sightline with l ≥ 45° reaches its tangent velocity; every sightline below l = 40°
+falls short, and the shortfall grows as the expected velocity does. Those are also the
+shortest integrations and the lowest elevations, and the emission there is spread over a far
+wider velocity range, so less of it lands in any one channel. Longer integrations at low
+longitude are the single highest-value next session.
+
+**Receiver gain drifts between the cold-sky baseline and the scan.** Measuring the
+off-line continuum ratio, which should sit near zero, gives:
+
+| drift | scans |
+|---|---|
+| under 5 % | 4 |
+| 5–20 % | 8 |
+| over 25 % | 3 (worst: 40 %) |
+
+Only 8 distinct baselines were captured for 15 scans, and within each shared baseline the
+later scans drift further — the receiver is warming and the OFF measurement goes stale.
+Recapturing every ~20 minutes would remove most of this.
+
+Importantly, this drift is degrading the data rather than manufacturing the signal: the
+correlation between absolute drift and integrated line flux is +0.10, and the four scans
+with the cleanest baselines include two of the strongest detections in the set.
+
+**Two of fifteen on-plane scans are nulls.** The l = 58.3° and l = 65.5° scans from
+2026-08-05 show no line at all despite 577 s and 608 s of integration and near-zero
+baseline drift. Their cold-sky baseline is clean of HI, so the usual explanation — an OFF
+measurement accidentally taken on the plane, which would cancel the line — does not apply.
+This is unexplained and worth chasing.
+
+**There is no valid off-plane control.** The one off-plane scan in the archive is the
+corrupted 2026-07-15 session in which the SDR was unplugged mid-integration and the timer
+ran for 19.4 hours; its exposure is unknown, so it cannot bound the false-positive rate.
+A deliberate 10-minute scan at |b| > 30°, processed identically, is the cheapest single
+measurement that would strengthen everything above.
+
+**Scope.** 13 logged detections over 5 nights, all in Quadrant I (l = 11–74°), 1.9 hours
+of on-sky integration, no outer-galaxy coverage.
 
 ## Hardware
 
@@ -173,6 +241,7 @@ tagged `Source`, so they can never be confused.
 ```
 hydrogen_mapper.py        acquisition app (PyQt6 GUI + DSP + logging)
 analyze_log.py            offline analysis -> the four figures
+check_data_quality.py     the four data-quality tests reported above
 angle_calc.py             dish elevation from tape-measure numbers
 galactic_plane_log.csv    the observing log (13 hardware detections)
 spectra/*.npz             full averaged spectrum of every scan
@@ -218,6 +287,7 @@ python -m pip install -r requirements.txt
 python hydrogen_mapper.py            # launch the app (falls back to Simulation with no SDR)
 python hydrogen_mapper.py --self-test   # headless pipeline check, prints PASS
 python analyze_log.py --show --hardware-only   # regenerate the figures from the log
+python check_data_quality.py                   # re-run the four data-quality tests
 ```
 
 With no SDR attached the app detects this at startup and drops into Simulation mode, so

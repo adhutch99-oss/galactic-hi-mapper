@@ -207,12 +207,16 @@ turning the log into graphs, and turning the graphs into science.
  HOW TO READ IT: x = distance from the galactic center (kpc), y = how fast gas
  orbits there (km/s). The dashed line is the textbook 220 km/s.
 
- WHAT TO DO WITH IT (the big one):
+ WHAT TO DO WITH IT:
    - A planet-style system would show V dropping like 1/sqrt(R) at large R.
    - The real Milky Way stays roughly FLAT (~200-230 km/s) out to the Sun.
-   - If your curve is flat, you have personally reproduced the classic
-     evidence for DARK MATTER. Say exactly that in any writeup — it is the
-     single most impressive sentence this project can produce.
+   - IMPORTANT: this plot is only a measurement if the TERMINAL velocity at
+     each longitude was actually measured. The tangent-point method assumes
+     the most extreme velocity in the profile comes from the tangent point.
+     If the detector logged the bright local-gas peak near v = 0 instead,
+     the plotted curve is just the geometric V0*sin(l) term rearranged, and
+     it will look convincingly flat while measuring nothing. Check each
+     profile by eye before trusting the curve.
    - Needs points spread over l = 15-75. More longitudes = better curve.
      Below ~5 longitudes it will look ragged; don't over-interpret it early.
 
@@ -274,7 +278,8 @@ turning the log into graphs, and turning the graphs into science.
  [ ] 4+ longitudes between l = 180 and 250 (outer/Perseus arm)
  [ ] all plots regenerated with --hardware-only
  [ ] lv_diagram_2d ridges compared against a published l-v survey figure
- [ ] rotation curve flat at large R -> state the dark-matter conclusion
+ [ ] terminal velocity verified by eye on each profile before the
+     rotation curve is quoted as a measurement
  [ ] faceon_map arcs identified with named arms (Sagittarius, Perseus...)
 ================================================================================
 ```
