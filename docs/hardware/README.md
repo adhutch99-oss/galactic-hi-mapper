@@ -1,16 +1,37 @@
-# Hardware photographs
+# Photographs
 
-Drop photos of the assembled instrument in this folder and link them from the
-top-level `README.md`. Useful shots, roughly in order of how much they prove:
+## What goes here now
 
-1. **The dish on its mount, outdoors**, with the feed boom visible — this is the
-   photo that shows the project is real hardware and not a simulation.
-2. **The feed and LNA close up** — the SAWbird+ H1 bolted at the focus, with its
-   power LED lit (the SDR's always-on bias-tee is feeding it).
-3. **The receiver end** — SDR, pigtail and USB, ideally with the LMR400 run visible.
-4. **The elevation measurement in progress** — phone inclinometer laid on the boom.
-   This one explains the pointing method better than a paragraph can.
-5. **The app running during a session**, screen showing the ON-PLANE banner green.
+Three images exist for this project today:
 
-Name them descriptively (`dish-mounted.jpg`, `feed-lna-closeup.jpg`, …) and keep
-each under ~2 MB so the repository stays quick to clone.
+| File | What it is | Caption it honestly as |
+|---|---|---|
+| `bench-setup-1.jpg` | The full signal chain indoors, next to the laptop with the app open | Bench setup — **not** an observing session |
+| `bench-setup-2.jpg` | Second angle of the same | as above |
+| `app-idle.png` | The application running, off-plane (banner not green) | The interface, with no target in the beam |
+
+An indoor bench photo is worth having. It shows the receiver chain is real hardware
+rather than a simulation, and that the software drives it. What it must not do is
+imply the dish was pointed at the sky when it was taken — the banner in the app
+screenshot is not green, and captioning around that is what keeps the whole
+repository trustworthy.
+
+## What is still missing, for whenever the dish is reachable again
+
+In rough order of how much each one adds:
+
+1. **The dish outdoors on its mount**, feed boom visible. This is the photo the
+   repository actually lacks — it is the only one that shows the instrument
+   deployed rather than disassembled on a desk.
+2. **The app mid-scan with the ON-PLANE banner green** and a line visible in the
+   spectrum. Pair it with the log row it produced and it becomes evidence, not
+   decoration.
+3. **The feed and LNA close up**, SAWbird power LED lit.
+4. **Elevation being measured** — phone inclinometer resting on the feed boom.
+   Explains the pointing method faster than a paragraph does.
+
+## Conventions
+
+Descriptive lowercase filenames, hyphens not spaces, each under ~2 MB so the
+repository stays quick to clone. Reference them from the top-level `README.md`
+with a caption that says where and when the photo was taken.

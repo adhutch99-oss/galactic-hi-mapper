@@ -162,7 +162,9 @@ Mount is fixed in azimuth at 180° (due south). The only pointing control is ele
 set with a phone inclinometer laid on the feed boom, or computed from tape-measure numbers
 by `angle_calc.py`. On Windows the SDR needs the WinUSB driver installed once via Zadig.
 
-> Photographs of the assembled instrument go in [`docs/hardware/`](docs/hardware/).
+> Photographs live in [`docs/hardware/`](docs/hardware/) — currently the bench setup
+> indoors and the application interface. A photograph of the dish deployed outdoors is
+> the one thing this repository is still missing.
 
 ---
 
