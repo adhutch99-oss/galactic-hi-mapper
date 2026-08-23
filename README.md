@@ -1,11 +1,11 @@
 # Galactic HI Mapper
 
 A DIY radio telescope that detects the **21 cm neutral-hydrogen line** (1420.405752 MHz)
-from the Milky Way, and the desktop software that runs it end to end — live spectrometer,
+from the Milky Way, and the desktop software that runs it end to end live spectrometer,
 observation planner, drift-scan integrator, observing log, and the analysis pipeline that
 turns the log into longitude–velocity diagrams, a rotation curve and a face-on map.
 
-Built and operated from a fixed backyard site on Long Island, NY (~40.7° N). The dish does
+Built and operated from a fixed site on Long Island, NY (~40.7° N). The dish does
 not steer: it points due south and the Earth's rotation carries the galactic plane through
 the beam. All hardware is off-the-shelf, total cost on the order of a few hundred dollars.
 
@@ -65,7 +65,7 @@ size of the bump — it is whether the bump moves with the sky. It does.
 nights the correction from the topocentric frame to the Local Standard of Rest varied over
 a range of 22 km/s, as the Earth's orbital and rotational velocity projected differently
 onto each sightline. If the feature were an instrumental artefact — a bandpass ripple, a
-residual DC term, a fixed birdie — it would sit at a constant *frequency* and its apparent
+residual DC term, a fixed birdie it would sit at a constant *frequency* and its apparent
 LSR velocity would track that correction exactly. Instead:
 
 | | across all 15 scans |
