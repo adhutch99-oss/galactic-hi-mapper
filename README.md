@@ -14,7 +14,7 @@ the beam. All hardware is off-the-shelf, total cost on the order of a few hundre
 
 ![The instrument indoors: mesh dish on a hand-built mount, feed and LNA at the focus, coax to the laptop running the acquisition software](docs/hardware/bench-setup.jpg)
 
-*The receiver chain assembled indoors — 20 dBi mesh dish on a hand-built wooden mount, feed
+*The receiver chain assembled indoors, 20 dBi mesh dish on a hand-built wooden mount, feed
 and LNA at the focus, coax to the laptop running the acquisition app. Observing is done
 outdoors; this is the bench, not a session.*
 
@@ -28,7 +28,7 @@ outdoors; this is the bench, not a session.*
 
 Four on-plane drift scans from 2026-07-15 (top four panels), each ~3 minutes, plotted as
 the baseline-subtracted line-to-continuum ratio `(ON − OFF)/OFF` against LSR velocity. Each
-shows a broad emission bump rising near v_LSR ≈ 0 with a tail out to +80–100 km/s — the
+shows a broad emission bump rising near v_LSR ≈ 0 with a tail out to +80–100 km/s is the
 signature of Quadrant-I galactic hydrogen, redshifted because we are looking inward along
 a rotating disc. The bump weakens with increasing longitude, as expected.
 
@@ -45,8 +45,8 @@ because that failure is what prompted the source-failure handling described belo
 
 The left panel plots the logged peak of each scan; the right one rebuilds a true l–v
 intensity image from every saved spectrum, so blended components the peak-finder cannot
-split are still visible. The vertical striping is the sampling — 13 sightlines, not a
-continuous survey.
+split are still visible. The vertical striping is the sampling of 13 sightlines instead of 
+a continuous survey.
 
 ### Rotation curve and face-on map
 
@@ -58,13 +58,13 @@ continuous survey.
 
 ## Is the signal real?
 
-The honest answer to "did this backyard dish actually detect the Milky Way" is not the
-size of the bump — it is whether the bump moves with the sky. It does.
+The answer to if it is real or not is based off the size of the bump,
+But it is whether the bump moves with the sky. In this case it does.
 
 **The emission is locked to the sky, not to the receiver.** Across the five observing
 nights the correction from the topocentric frame to the Local Standard of Rest varied over
 a range of 22 km/s, as the Earth's orbital and rotational velocity projected differently
-onto each sightline. If the feature were an instrumental artefact — a bandpass ripple, a
+onto each sightline. If the feature were an instrumental artefact such as  a bandpass ripple, a
 residual DC term, a fixed birdie it would sit at a constant *frequency* and its apparent
 LSR velocity would track that correction exactly. Instead:
 
@@ -127,7 +127,7 @@ off-line continuum ratio, which should sit near zero, gives:
 | over 25 % | 3 (worst: 40 %) |
 
 Only 8 distinct baselines were captured for 15 scans, and within each shared baseline the
-later scans drift further — the receiver is warming and the OFF measurement goes stale.
+later scans drift further and the receiver is warming and the OFF measurement goes stale.
 Recapturing every ~20 minutes would remove most of this.
 
 Importantly, this drift is degrading the data rather than manufacturing the signal: the
@@ -136,9 +136,9 @@ with the cleanest baselines include two of the strongest detections in the set.
 
 **Two of fifteen on-plane scans are nulls.** The l = 58.3° and l = 65.5° scans from
 2026-08-05 show no line at all despite 577 s and 608 s of integration and near-zero
-baseline drift. Their cold-sky baseline is clean of HI, so the usual explanation — an OFF
-measurement accidentally taken on the plane, which would cancel the line — does not apply.
-This is unexplained and worth chasing.
+baseline drift. Their cold-sky baseline is clean of HI, so the usual explanation is an OFF
+measurement accidentally taken on the plane, which would cancel the line and does not apply.
+This is unexplained.
 
 **There is no valid off-plane control.** The one off-plane scan in the archive is the
 corrupted 2026-07-15 session in which the SDR was unplugged mid-integration and the timer
