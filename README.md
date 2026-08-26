@@ -1,6 +1,6 @@
 # Galactic HI Mapper
 
-A DIY radio telescope that detects the **21 cm neutral-hydrogen line** (1420.405752 MHz)
+A radio telescope that detects the **21 cm neutral-hydrogen line** (1420.405752 MHz)
 from the Milky Way, and the desktop software that runs it end to end live spectrometer,
 observation planner, drift-scan integrator, observing log, and the analysis pipeline that
 turns the log into longitude–velocity diagrams, a rotation curve and a face-on map.
